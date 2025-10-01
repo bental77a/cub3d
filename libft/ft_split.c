@@ -5,109 +5,80 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 21:30:33 by mohel-kh          #+#    #+#             */
-/*   Updated: 2025/06/29 09:02:40 by mohben-t         ###   ########.fr       */
+/*   Created: 2025/10/01 14:15:55 by mohben-t          #+#    #+#             */
+/*   Updated: 2025/10/01 14:15:56 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	get_word_len(const char *s, char sep)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] && s[i] != sep)
-	{
-		if (is_quote(s[i]))
-			i = skip_quote(s, i);
-		else
-			i++;
-	}
-	return (i);
-}
-
-static int	count_words(const char *s, char sep)
+int	count(char const *s, char c)
 {
 	int	i;
 	int	count;
+	int	next;
 
 	i = 0;
 	count = 0;
+	next = 1;
 	while (s[i])
 	{
-		while (s[i] == sep)
-			i++;
-		if (!s[i])
-			break ;
-		count++;
-		i += get_word_len(&s[i], sep);
+		if (s[i] != c && next == 1)
+		{
+			next = 0;
+			count++;
+		}
+		else if (s[i] == c)
+		{
+			next = 1;
+		}
+		i++;
 	}
 	return (count);
 }
 
-static char	*copy_word(const char *s, int len)
+char	*copy(char *str, int start, int end)
 {
 	char	*word;
-	char	quote;
+	int		i;
 
-	int (i), (j);
-	i = 0;
-	j = 0;
-	word = (char *)malloc(len + 1);
+	word = (char *)malloc((end - start + 2) * sizeof(char));
 	if (!word)
 		return (NULL);
-	while (i < len)
+	i = 0;
+	while (start < end)
 	{
-		if (is_quote(s[i]))
-		{
-			quote = s[i++];
-			word[j++] = quote;
-			while (s[i] && s[i] != quote)
-				word[j++] = s[i++];
-			if (s[i] == quote)
-				word[j++] = s[i++];
-		}
-		else
-			word[j++] = s[i++];
+		word[i] = str[start];
+		i++;
+		start++;
 	}
-	word[j] = '\0';
+	word[i] = '\0';
 	return (word);
 }
 
-static void	*free_all(char **arr, int count)
+char	**ft_split(char const *s, char c)
 {
-	while (--count >= 0)
-		free(arr[count]);
-	free(arr);
-	return (NULL);
-}
+	char	**result;
 
-char	**ft_split(const char *s, char sep)
-{
-	char	**res;
-
-	int (i), (j), (len);
-	i = 0;
-	j = 0;
+	int i, (start), (word), (j);
 	if (!s)
 		return (NULL);
-	res = malloc(sizeof(char *) * (count_words(s, sep) + 1));
-	if (!res)
+	word = count(s, c);
+	result = (char **)malloc((word + 1) * sizeof(char *));
+	if (!result)
 		return (NULL);
+	i = 0;
+	j = 0;
 	while (s[i])
 	{
-		while (s[i] == sep)
+		while (s[i] == c)
 			i++;
-		if (!s[i])
-			break ;
-		len = get_word_len(&s[i], sep);
-		res[j] = copy_word(&s[i], len);
-		if (!res[j])
-			return (free_all(res, j));
-		i += len;
-		j++;
+		start = i;
+		while (s[i] && s[i] != c)
+			i++;
+		if (start < i)
+			result[j++] = copy((char *)s, start, i);
 	}
-	res[j] = NULL;
-	return (res);
+	result[j] = (NULL);
+	return (result);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 18:03:19 by mohel-kh          #+#    #+#             */
-/*   Updated: 2025/06/20 15:31:52 by mohben-t         ###   ########.fr       */
+/*   Created: 2025/10/01 14:16:11 by mohben-t          #+#    #+#             */
+/*   Updated: 2025/10/01 14:16:12 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,20 @@
 
 char	*ft_strdup(const char *s1)
 {
-	int		c;
 	char	*dup;
+	int		i;
 
-	c = 0;
 	if (!s1)
 		return (NULL);
-	while (s1[c] != '\0')
-		c++;
-	dup = (char *)malloc(c * sizeof(char) + 1);
+	dup = malloc(sizeof(char) * (ft_strlen(s1) + 1));
 	if (!dup)
-		return (0);
-	c = 0;
-	while (s1[c] != '\0')
+		return (NULL);
+	i = 0;
+	while (s1[i])
 	{
-		dup[c] = s1[c];
-		c++;
+		dup[i] = s1[i];
+		i++;
 	}
-	dup[c] = '\0';
+	dup[i] = '\0';
 	return (dup);
 }

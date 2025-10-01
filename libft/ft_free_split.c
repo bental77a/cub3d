@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_free_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/01 14:16:31 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/10/01 14:16:32 by mohben-t         ###   ########.fr       */
+/*   Created: 2025/10/01 14:15:36 by mohben-t          #+#    #+#             */
+/*   Updated: 2025/10/01 14:15:37 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+void	ft_free_split(char **split)
 {
 	int	i;
 
-	i = ft_strlen(s);
-	if (!s)
-		return (NULL);
-	while (i >= 0)
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
 	{
-		if (s[i] == (char)c)
-		{
-			return ((char *)s + i);
-		}
-		i--;
+		free(split[i]);
+		i++;
 	}
-	return (NULL);
+	free(split);
 }

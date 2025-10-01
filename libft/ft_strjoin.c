@@ -5,63 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 09:05:39 by mohel-kh          #+#    #+#             */
-/*   Updated: 2025/06/29 09:02:58 by mohben-t         ###   ########.fr       */
+/*   Created: 2025/10/01 14:16:16 by mohben-t          #+#    #+#             */
+/*   Updated: 2025/10/01 14:16:17 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin1(char const *s1, char const *s2)
-{
-	char	*str;
-	int		s1_len;
-	int		s2_len;
-	int		i;
-
-	i = 0;
-	if (!s1 || !s2)
-		return (0);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	str = malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!str)
-		return (NULL);
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	i = 0;
-	while (s2[i])
-		str[s1_len++] = s2[i++];
-	str[s1_len] = '\0';
-	return (free((char *)s1), str);
-}
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*str;
-	int		s1_len;
-	int		s2_len;
-	int		i;
+	char	*dst;
 
-	i = 0;
-	if (!s1 || !s2)
-		return (0);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	str = malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!str)
+	if (!s1 && !s2)
 		return (NULL);
+	size_t len_s, (len_d);
+	int i, (j);
+	len_d = ft_strlen(s1);
+	len_s = ft_strlen(s2);
+	dst = (char *)malloc(sizeof(char) * (len_s + len_d + 1));
+	if (!dst)
+		return (NULL);
+	i = 0;
 	while (s1[i])
 	{
-		str[i] = s1[i];
+		dst[i] = s1[i];
 		i++;
 	}
-	i = 0;
-	while (s2[i])
-		str[s1_len++] = s2[i++];
-	str[s1_len] = '\0';
-	return (str);
+	j = 0;
+	while (s2[j])
+		dst[i++] = s2[j++];
+	dst[i] = '\0';
+	return (dst);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 18:35:42 by mohel-kh          #+#    #+#             */
-/*   Updated: 2025/08/21 16:04:01 by mohben-t         ###   ########.fr       */
+/*   Created: 2025/10/01 14:16:20 by mohben-t          #+#    #+#             */
+/*   Updated: 2025/10/01 14:16:21 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);

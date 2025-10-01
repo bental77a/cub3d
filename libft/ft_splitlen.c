@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_splitlen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/01 14:16:31 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/10/01 14:16:32 by mohben-t         ###   ########.fr       */
+/*   Created: 2025/10/01 14:16:01 by mohben-t          #+#    #+#             */
+/*   Updated: 2025/10/01 14:16:02 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+int	ft_splitlen(char **split)
 {
-	int	i;
+	int	len;
 
-	i = ft_strlen(s);
-	if (!s)
-		return (NULL);
-	while (i >= 0)
-	{
-		if (s[i] == (char)c)
-		{
-			return ((char *)s + i);
-		}
-		i--;
-	}
-	return (NULL);
+	if (!split)
+		return (0);
+	len = 0;
+	while (split[len])
+		len++;
+	return (len);
 }
