@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houarrak <houarrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:13:16 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/10/01 14:13:18 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/10/04 15:25:56 by houarrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-static void	put_error(char *msg)
+void	put_error(char *msg)
 {
     ft_putendl_fd("Error", 2);
     ft_putendl_fd(msg, 2);

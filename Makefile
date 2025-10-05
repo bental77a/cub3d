@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+         #
+#    By: houarrak <houarrak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 14:16:44 by mohben-t          #+#    #+#              #
-#    Updated: 2025/10/01 14:23:40 by mohben-t         ###   ########.fr        #
+#    Updated: 2025/10/05 18:25:58 by houarrak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME := cub3d
 
 CC := cc
 
-CFLAGS := -Wall -Wextra -Werror -I./minilibx-linux -I./includes -I./gnl
+CFLAGS := -Wall -Wextra -Werror -I./minilibx-linux -I./includes -I./gnl -g3 -fsanitize=address
 
 LIBXFLAGS := -L./minilibx-linux -lmlx -lXext -lX11 -lm
 
@@ -26,11 +26,13 @@ libft 	:= libft/ft_atoi.c libft/ft_putendl_fd.c libft/ft_strcmp.c libft/ft_strrc
 srcode  := src/parsing/parse_file.c  src/parsing/parse_identifiers.c  src/parsing/parse_map.c \
 			src/parsing/parse_utils.c  src/parsing/print_error.c
 
-main 	:= src/main.c
+srcgame := src/game/game_utils.c src/game/init_game.c src/game/raycaster.c src/game/hooks.c src/game/playerr.c 
+
+main 	:= src/main.c src/player.c src/utils.c
 
 gnl     := gnl/get_next_line_utils.c gnl/get_next_line.c
 
-SRC    := $(srcode) $(main) $(libft) $(gnl) 
+SRC    := $(srcode) $(srcgame) $(main) $(libft) $(gnl) 
 
 OBJS 	:= $(SRC:.c=.o)
 
