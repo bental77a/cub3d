@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houarrak <houarrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:12:15 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/10/01 14:30:29 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:43:52 by houarrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../includes/cub.h"
+
 
 static void	print_config(t_config *config)
 {
@@ -63,19 +64,30 @@ static void	init_config(t_config *config)
     config->player_dir = '\0';
 }
 
-int	main(int ac, char **av)
+
+int main(int ac, char **av)
 {
-    t_config	config;
+    t_game game;
+
     if (ac != 2)
         return (ft_putendl_fd(USAGE_ERR, 2), 1);
     if (has_cub_extension(av[1]))
         return (1);
-    init_config(&config);
-    if (parse_file(av[1], &config))
+    init_config(&game.config);
+    if (parse_file(av[1], &game.config))
         return (1);
-    validate_map(&config);
-    printf("Map validation completed!\n");
-    
-    print_config(&config);
+    validate_map(&game.config);
+    print_config(&game.config);
+    init_game(&game);
+    init_player(&game.player, &game.config);
+
+    draw_background(&game);
+
+    raycast(&game, &game.player);
+    mlx_key_hook(game.win, handle_keypress, &game);
+    mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
+
+    mlx_loop(game.mlx);
     return (0);
 }
+
