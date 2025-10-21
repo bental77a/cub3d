@@ -6,7 +6,7 @@
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:13:00 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/10/01 14:40:22 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/10/21 11:18:44 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,68 @@ static void	validate_map_borders(t_config *config)
         }
         y++;
     }
+    
+}
+int	first_non_space(char *s)
+{
+    int	i;
+
+    if (!s)
+        return (-1);
+    i = 0;
+    while (s[i] && (s[i] == ' ' || s[i] == '\t'))
+        i++;
+    if (s[i])
+        return (i);
+    return (-1);
+}
+int	last_non_space(char *s)
+{
+    int	i;
+
+    if (!s)
+        return (-1);
+    i = ft_strlen(s) - 1;
+    while (i >= 0 && (s[i] == ' ' || s[i] == '\t'))
+        i--;
+    if (i >= 0) 
+        return (i);
+    return (-1);
+}
+
+int	find_consecutive_newlines(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n' && str[i + 1] == '\n')
+			return (1);
+		str++;
+	}
+	return (0);
 }
 
 void	validate_map(t_config *config)
 {
     int	y;
     int	x;
+    int left;
+    int right;
 
     if (!config->map || config->map_h == 0)
         print_error(ERR_INVALID_MAP);
+    
     y = 0;
     while (y < config->map_h)
     {
-        x = 0;
-        while (config->map[y][x])
-        {
-            if (config->map[y][x] == ' ')
-                config->map[y][x] = '1';
-            x++;
-        }
+        left = first_non_space(config->map[y]);
+        right = last_non_space(config->map[y]);
+        if (left == -1 || right == -1)
+            print_error(ERR_INVALID_MAP);
+        if (config->map[y][left] != '1' || config->map[y][right] != '1')
+            print_error(ERR_INVALID_MAP);
         y++;
     }
     y = 0;
@@ -100,7 +143,18 @@ void	validate_map(t_config *config)
         }
         y++;
     }
-    
+    y = 0;
+    while (y < config->map_h)
+    {
+        x = 0;
+        while (config->map[y][x])
+        {
+            if (config->map[y][x] == ' ')
+                config->map[y][x] = '1';
+            x++;
+        }
+        y++;
+    }
     find_player(config);
     validate_map_borders(config);
 }

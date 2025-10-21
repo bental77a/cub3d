@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houarrak <houarrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:13:36 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/10/05 18:45:13 by houarrak         ###   ########.fr       */
+/*   Updated: 2025/10/19 08:10:43 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "get_next_line.h"
 # include "libft.h"
 # include <math.h>
-# include "./minilibx-linux/mlx.h"
+# include <mlx.h>
 
 # define  WIDTH 1024
 # define  HEIGHT 700
@@ -117,6 +117,7 @@ char	**add_line_to_array(char **array, char *line);
 void	print_error(int code);
 void	validate_map(t_config *config);
 void	put_error(char *msg);
+int	find_consecutive_newlines(const char *str);
 
 
 //void init_player(t_player *player);

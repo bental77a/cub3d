@@ -6,7 +6,7 @@
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:12:53 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/10/01 14:12:55 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/10/21 11:24:21 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	parse_identifier(t_config *cfg, char *line)
         parse_rgb(cfg->ceil, line + 2);
     else if (is_map_line(line))
     {
+        
+        
         cfg->map = add_line_to_array(cfg->map, line);
         cfg->map_h++;
         if ((int)ft_strlen(line) > cfg->map_w)

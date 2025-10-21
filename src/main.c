@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houarrak <houarrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:12:15 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/10/05 18:43:52 by houarrak         ###   ########.fr       */
+/*   Updated: 2025/10/19 08:16:12 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../includes/cub.h"
 
-
-static void	print_config(t_config *config)
+void	print_config(t_config *config)
 {
     int	i;
 
@@ -68,7 +67,7 @@ static void	init_config(t_config *config)
 int main(int ac, char **av)
 {
     t_game game;
-
+    
     if (ac != 2)
         return (ft_putendl_fd(USAGE_ERR, 2), 1);
     if (has_cub_extension(av[1]))
