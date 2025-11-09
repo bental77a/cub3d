@@ -6,7 +6,7 @@
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:13:36 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/11/09 18:06:43 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/11/09 19:38:13 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ typedef struct s_proj
 }	t_proj;
 
 
+void destroy_leaks(t_config *config);
 int	is_valid_map_char(char c);
 int	handle_texture_entry(char *line, t_config *config, int *count);
 int	handle_identifier_line(char **cursor, t_config *config);

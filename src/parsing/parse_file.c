@@ -6,7 +6,7 @@
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:12:38 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/11/09 17:50:50 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/11/09 19:39:18 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	parse_file(char *filename, t_config *config)
 	if (parse_content(all_map, config) == -1)
 	{
 		free(all_map);
+		destroy_leaks(config);
 		put_error("Invalid textures/colors");
 	}
 	free(all_map);

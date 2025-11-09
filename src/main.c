@@ -6,12 +6,20 @@
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:12:15 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/11/09 18:11:54 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/11/09 19:39:00 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../includes/cub.h"
+
+void destroy_leaks(t_config *config)
+{
+    if (config->map)
+        free_array(config->map);
+    if (config->no_tex && config->so_tex && config->we_tex && config->ea_tex)
+        free_textures(config);
+}
 
 int	handle_identifier_line(char **cursor, t_config *config)
 {
@@ -63,10 +71,10 @@ int main(int ac, char **av)
         return (1);
     if (game.config.floor[0] == -1 && game.config.floor[1] == -1
 		&& game.config.floor[2] == -1)
-		return (put_error("Floor color not set"), 1);
+		return (destroy_leaks(&game.config), put_error("Floor color not set"), 1);
 	if (game.config.ceil[0] == -1 && game.config.ceil[1] == -1
 		&& game.config.ceil[2] == -1)
-		return (put_error("Ceiling color not set"), 1);
+		return (destroy_leaks(&game.config), put_error("Ceiling color not set"), 1);
     init_game(&game);
     init_player(&game.player, &game.config);
     draw_background(&game);
