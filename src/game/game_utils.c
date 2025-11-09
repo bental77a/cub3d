@@ -6,7 +6,7 @@
 /*   By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:02:59 by houarrak          #+#    #+#             */
-/*   Updated: 2025/11/09 17:32:06 by houarrak         ###   ########.fr       */
+/*   Updated: 2025/11/09 22:47:26 by houarrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,26 @@ void	draw_background(t_game *game)
 		}
 		y++;
 	}
+}
+
+void	destroy_game(t_game *game)
+{
+	int i;
+
+	if (!game)
+		return ;
+	if (game->img)
+		mlx_destroy_image(game->mlx, game->img);
+	i = 0;
+	while (i < 4)
+	{
+		if (game->tex_img[i])
+			mlx_destroy_image(game->mlx, game->tex_img[i]);
+		i++;
+	}
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	free_textures(&game->config);
+	if (game->config.map)
+		free_array(game->config.map);
 }

@@ -1,0 +1,40 @@
+# Valgrind suppression file to ignore harmless allocations from X11 / XCB / Xext
+# Usage: valgrind --leak-check=full --show-leak-kinds=all --suppressions=valgrind.supp ./cub3d maps/matrix.cub
+
+{
+   libX11_supp
+   Memcheck:Leak
+   obj:*/libX11.so*
+}
+
+{
+   libXext_supp
+   Memcheck:Leak
+   obj:*/libXext.so*
+}
+
+{
+   libxcb_supp
+   Memcheck:Leak
+   obj:*/libxcb.so*
+}
+
+{
+   libXau_supp
+   Memcheck:Leak
+   obj:*/libXau.so*
+}
+
+{
+   libxcb_util_supp
+   Memcheck:Leak
+   obj:*/libxcb-util.so*
+}
+
+{
+   minilibx_supp
+   Memcheck:Leak
+   obj:*/libmlx*.*
+}
+
+

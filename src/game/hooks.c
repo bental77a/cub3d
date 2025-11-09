@@ -6,7 +6,7 @@
 /*   By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 18:20:09 by houarrak          #+#    #+#             */
-/*   Updated: 2025/11/09 15:13:03 by houarrak         ###   ########.fr       */
+/*   Updated: 2025/11/09 21:38:34 by houarrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	key_press(int keycode, t_game *game)
 		game->rot_right = 1;
 	if (keycode == KEY_ESC)
 	{
-		mlx_destroy_window(game->mlx, game->win);
+		destroy_game(game);
 		exit(0);
 	}
 	game->need_redraw = 1;
@@ -53,23 +53,33 @@ int	key_release(int keycode, t_game *game)
 }
 int	close_window(t_game *game)
 {
-	if (game->img)
-		mlx_destroy_image(game->mlx, game->img);
-
-	int i = 0;
-	while (i < 4)
-	{
-		if (game->tex_img[i])
-			mlx_destroy_image(game->mlx, game->tex_img[i]);
-		i++;
-	}
-
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	// Free any other resources (map, config, ...)
-	// free_config(&game->config);
+	destroy_game(game);
 	printf("Window closed — exiting Cub3D.\n");
-
 	exit(0);
 	return (0);
 }
+
+void free_config(t_config *config)
+{
+	if (config->no_tex)
+		free(config->no_tex);
+	if (config->so_tex)
+		free(config->so_tex);
+	if (config->we_tex)
+		free(config->we_tex);
+	if (config->ea_tex)
+		free(config->ea_tex);
+	if (config->map)
+	{
+		int i = 0;
+		while (i < config->map_h)
+		{
+			if (config->map[i])
+				free(config->map[i]);
+			i++;
+		}
+		free(config->map);
+	}
+}
+
+

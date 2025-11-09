@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:13:36 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/11/09 19:38:13 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/11/09 22:53:32 by houarrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <math.h>
 # include <sys/time.h>
 
-# include <mlx.h>
+# include "./minilibx-linux/mlx.h"
+//# include <mlx.h>
 
 # define  WIDTH 1480
 # define  HEIGHT 944
@@ -158,6 +159,7 @@ typedef struct s_proj
 
 
 void destroy_leaks(t_config *config);
+void destroy_game(t_game *game);
 int	is_valid_map_char(char c);
 int	handle_texture_entry(char *line, t_config *config, int *count);
 int	handle_identifier_line(char **cursor, t_config *config);
@@ -257,7 +259,7 @@ int key_press(int keycode, t_game *game);
 int key_release(int keycode, t_game *game);
 int update_loop(void *param);
 int	close_window(t_game *game);
-
+void free_config(t_config *config);
 
 int is_empty_cell(t_game *game, double x, double y);
 

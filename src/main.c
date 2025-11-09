@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:12:15 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/11/09 19:39:00 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/11/09 21:42:24 by houarrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void destroy_leaks(t_config *config)
 {
     if (config->map)
         free_array(config->map);
-    if (config->no_tex && config->so_tex && config->we_tex && config->ea_tex)
-        free_textures(config);
+    free_textures(config);
+        
 }
 
 int	handle_identifier_line(char **cursor, t_config *config)
