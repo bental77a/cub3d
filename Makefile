@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: houarrak <houarrak@student.42.fr>          +#+  +:+       +#+         #
+#    By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 14:16:44 by mohben-t          #+#    #+#              #
-#    Updated: 2025/10/05 18:25:58 by houarrak         ###   ########.fr        #
+#    Updated: 2025/11/09 17:56:55 by mohben-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME := cub3d
 
 CC := cc
 
-CFLAGS := -Wall -Wextra -Werror -I./minilibx-linux -I./includes -I./gnl -g3 -fsanitize=address
+CFLAGS := -Wall -Wextra -Werror -I./minilibx-linux -I./includes -I./gnl #-g3 -fsanitize=address
 
 LIBXFLAGS := -L./minilibx-linux -lmlx -lXext -lX11 -lm
 
@@ -23,12 +23,14 @@ libft 	:= libft/ft_atoi.c libft/ft_putendl_fd.c libft/ft_strcmp.c libft/ft_strrc
 		   libft/ft_split.c libft/ft_strncmp.c libft/ft_strtrim.c \
 		   libft/ft_splitlen.c libft/ft_free_split.c
 
-srcode  := src/parsing/parse_file.c  src/parsing/parse_identifiers.c  src/parsing/parse_map.c \
-			src/parsing/parse_utils.c  src/parsing/print_error.c
+srcode  := src/parsing/print_error.c  src/parsing/parsse_color.c src/parsing/parse_utils.c \
+			src/parsing/parse_utils_1.c src/parsing/parse_map.c src/parsing/parse_identifiers.c \
+			src/parsing/parse_file.c  src/parsing/parse_utils_2.c src/parsing/parse_utils_3.c
 
-srcgame := src/game/game_utils.c src/game/init_game.c src/game/raycaster.c src/game/hooks.c src/game/playerr.c 
+srcgame := src/game/game_utils.c src/game/init_game.c src/game/raycaster.c src/game/hooks.c \
+			src/game/player_mov.c src/game/raycaster_utils.c src/game/textures.c
 
-main 	:= src/main.c src/player.c src/utils.c
+main 	:= src/main.c src/game/player.c src/game/player_utils.c
 
 gnl     := gnl/get_next_line_utils.c gnl/get_next_line.c
 

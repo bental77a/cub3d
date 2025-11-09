@@ -3,44 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   game_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houarrak <houarrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:02:59 by houarrak          #+#    #+#             */
-/*   Updated: 2025/10/04 14:03:49 by houarrak         ###   ########.fr       */
+/*   Updated: 2025/11/09 17:32:06 by houarrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-int rgb_to_int(int r, int g, int b)
+int is_empty_cell(t_game *game, double x, double y)
 {
-    return ((r << 16) | (g << 8) | b);
+	int map_x = (int)x;
+	int map_y = (int)y;
+    if (map_x < 0 || map_y < 0 || map_y >= game->config.map_h)
+        return 0;
+    if (map_x >= (int)ft_strlen(game->config.map[map_y]))
+        return 0;
+    return (game->config.map[map_y][map_x] != '1');
 }
 
-void put_pixel(t_game *game, int x, int y, int color)
+int	rgb_to_int(int r, int g, int b)
 {
-    char *dst;
-
-    if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-        return;
-    dst = game->img_data + (y * game->line_len + x * (game->bpp / 8));
-    *(unsigned int*)dst = color;
+	return ((r << 16) | (g << 8) | b);
 }
 
-void draw_background(t_game *game)
+void	put_pixel(t_game *game, int x, int y, int color)
 {
-    int x, y;
-    int ceil = rgb_to_int(game->config.ceil[0], game->config.ceil[1], game->config.ceil[2]);
-    int floor = rgb_to_int(game->config.floor[0], game->config.floor[1], game->config.floor[2]);
+	char	*dst;
 
-    for (y = 0; y < HEIGHT; y++)
-    {
-        for (x = 0; x < WIDTH; x++)
-        {
-            if (y < HEIGHT / 2)
-                put_pixel(game, x, y, ceil);
-            else
-                put_pixel(game, x, y, floor);
-        }
-    }
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return ;
+	dst = game->img_data + (y * game->line_len + x * (game->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
+void	draw_background(t_game *game)
+{
+	int	ceil;
+	int	floor;
+
+	int x, y;
+	ceil = rgb_to_int(game->config.ceil[0], game->config.ceil[1],
+			game->config.ceil[2]);
+	floor = rgb_to_int(game->config.floor[0], game->config.floor[1],
+			game->config.floor[2]);
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			if (y < HEIGHT / 2)
+				put_pixel(game, x, y, ceil);
+			else
+				put_pixel(game, x, y, floor);
+			x++;
+		}
+		y++;
+	}
 }

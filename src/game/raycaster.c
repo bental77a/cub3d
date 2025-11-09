@@ -3,109 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houarrak <houarrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 20:47:57 by houarrak          #+#    #+#             */
-/*   Updated: 2025/10/05 18:58:28 by houarrak         ###   ########.fr       */
+/*   Updated: 2025/11/09 17:26:57 by houarrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-void raycast(t_game *game, t_player *player)
+static void dda_loop(t_game *g, t_ray *r)
 {
-    int x;
-    for (x = 0; x < WIDTH; x++)
-    {
-        // 1. Ray direction for this column
-        double camera_x = 2 * x / (double)WIDTH - 1;
-        double ray_dir_x = player->dir_x + player->plane_x * camera_x;
-        double ray_dir_y = player->dir_y + player->plane_y * camera_x;
+	int hit = 0;
+	while (!hit)
+	{
+		if (r->side_dist_x < r->side_dist_y)
+		{
+			r->side_dist_x += r->delta_dist_x;
+			r->map_x += r->step_x;
+			r->side = 0;
+		}
+		else
+		{
+			r->side_dist_y += r->delta_dist_y;
+			r->map_y += r->step_y;
+			r->side = 1;
+		}
+		if (r->map_x < 0 || r->map_y < 0 || r->map_y >= g->config.map_h
+			|| r->map_x >= (int)ft_strlen(g->config.map[r->map_y]))
+			break ;
+		if (g->config.map[r->map_y][r->map_x] == '1')
+			hit = 1;
+	}
+}
 
-        // 2. Map position
-        int map_x = (int)player->x;
-        int map_y = (int)player->y;
+static void perform_dda(t_game *g, t_ray *r)
+{
+	dda_loop(g, r);
+	if (r->side == 0)
+		r->perp_wall_dist = r->side_dist_x - r->delta_dist_x;
+	else
+		r->perp_wall_dist = r->side_dist_y - r->delta_dist_y;
+}
 
-        // 3. Length of ray from one x/y-side to next x/y-side
-        double delta_dist_x = (ray_dir_x == 0) ? 1e30 : fabs(1 / ray_dir_x);
-        double delta_dist_y = (ray_dir_y == 0) ? 1e30 : fabs(1 / ray_dir_y);
+static void	calculate_projection(t_proj *p, double dist)
+{
+	p->line_height = (int)(HEIGHT / dist);
+	p->draw_start = -p->line_height / 2 + HEIGHT / 2;
+	if (p->draw_start < 0)
+		p->draw_start = 0;
+	p->draw_end = p->line_height / 2 + HEIGHT / 2;
+	if (p->draw_end >= HEIGHT)
+		p->draw_end = HEIGHT - 1;
+}
 
-        // 4. Step and initial side_dist
-        int step_x, step_y;
-        double side_dist_x, side_dist_y;
-        if (ray_dir_x < 0)
-        {
-            step_x = -1;
-            side_dist_x = (player->x - map_x) * delta_dist_x;
-        }
-        else
-        {
-            step_x = 1;
-            side_dist_x = (map_x + 1.0 - player->x) * delta_dist_x;
-        }
-        if (ray_dir_y < 0)
-        {
-            step_y = -1;
-            side_dist_y = (player->y - map_y) * delta_dist_y;
-        }
-        else
-        {
-            step_y = 1;
-            side_dist_y = (map_y + 1.0 - player->y) * delta_dist_y;
-        }
+static void	draw_wall_column(t_game *g, t_ray *r, t_proj *p, int tex_id, int x)
+{
+	int		y;
+	int		tex_y;
+	unsigned int	color;
 
-        // 5. DDA algorithm
-        int hit = 0;
-        int side;
-        //printf("Player position: x=%f, y=%f\n", player->x, player->y);
-        while (hit == 0)
-        {
-            if (side_dist_x < side_dist_y)
-            {
-                side_dist_x += delta_dist_x;
-                map_x += step_x;
-                side = 0;
-            }
-            else
-            {
-                side_dist_y += delta_dist_y;
-                map_y += step_y;
-                side = 1;
-            }
-                if (map_x < 0 || map_y < 0 ||
-        map_y >= game->config.map_h ||
-        map_x >= (int)ft_strlen(game->config.map[map_y]) )
-            {
-        // Option
-        break;
-            }
-            if (game->config.map[map_y][map_x] == '1'){
-                hit = 1;
-                 //printf("Mur tdrb en %d, %d\n", map_x, map_y);
-            }
-        }
+	y = p->draw_start;
+	while (y < p->draw_end)
+	{
+		tex_y = (int)p->tex_pos & (g->tex_h[tex_id] - 1);
+		p->tex_pos += p->step;
+		color = get_tex_color(g, tex_id, p->tex_x, tex_y);
+		if (r->side == 1)
+			color = (color >> 1) & 0x7F7F7F; // shading
+		put_pixel(g, x, y, color);
+		y++;
+	}
+}
+void	raycast(t_game *g, t_player *p)
+{
+	t_ray	r;
+	t_proj	pr;
+	int		x;
+	int		tex_id;
 
-        // 6. Calculate distance to wall
-        double perp_wall_dist;
-        if (side == 0)
-            perp_wall_dist = (side_dist_x - delta_dist_x);
-        else
-            perp_wall_dist = (side_dist_y - delta_dist_y);
-
-        // 7. Calculate wall height
-        int line_height = (int)(HEIGHT / perp_wall_dist);
-
-        // 8. Calculate lowest and highest pixel to fill in current stripe
-        int draw_start = -line_height / 2 + HEIGHT / 2;
-        if (draw_start < 0) draw_start = 0;
-        int draw_end = line_height / 2 + HEIGHT / 2;
-        if (draw_end >= HEIGHT) draw_end = HEIGHT - 1;
-
-        // 9. Choose color (different for x/y wall)
-        int color = (side == 0) ? 0x2550000 : 0x800000;
-
-        // 10. Draw vertical line
-        for (int y = draw_start; y < draw_end; y++)
-            put_pixel(game, x, y, color);
-    }
+	x = 0;
+	while (x < WIDTH)
+	{
+		init_ray(&r, p, x);
+		perform_dda(g, &r);
+		calculate_projection(&pr, r.perp_wall_dist);
+		tex_id = get_texture_info(g, &r, &pr);
+		draw_wall_column(g, &r, &pr, tex_id, x);
+		x++;
+	}
 }
