@@ -6,14 +6,14 @@
 /*   By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:13:36 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/11/10 14:17:33 by houarrak         ###   ########.fr       */
+/*   Updated: 2025/11/10 18:32:36 by houarrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
-# include "./minilibx-linux/mlx.h"
+//# include "./minilibx-linux/mlx.h"
 # include "get_next_line.h"
 # include "libft.h"
 # include <fcntl.h>
@@ -23,7 +23,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
-//# include <mlx.h>
+# include <mlx.h>
 
 # define WIDTH 1480
 # define HEIGHT 944
@@ -246,7 +246,6 @@ void			rotate_left(t_game *game);
 void			rotate_right(t_game *game);
 int				handle_linear_movement(t_game *game);
 int				handle_rotation(t_game *game);
-
 
 // HOOKS
 int				key_press(int keycode, t_game *game);

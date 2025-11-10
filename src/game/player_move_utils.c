@@ -41,6 +41,7 @@ void	move_backward(t_game *game)
 	if (is_empty_cell(game, game->player.x, ny))
 		game->player.y = ny;
 }
+
 void	rotate_right(t_game *game)
 {
 	double	rot;
@@ -57,6 +58,7 @@ void	rotate_right(t_game *game)
 	game->player.plane_y = old_plane_x * sin(rot) + game->player.plane_y
 		* cos(rot);
 }
+
 int	handle_linear_movement(t_game *game)
 {
 	int	moved;
