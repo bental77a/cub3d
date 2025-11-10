@@ -6,7 +6,7 @@
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:13:00 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/11/09 18:05:07 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/11/10 10:11:34 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	check_textures_and_color(char **map_str, t_config *config)
 	int		count;
 
 	count = 0;
-	while ((line = get_next_line_from_string(map_str)))
+	line = get_next_line_from_string(map_str);
+	while (line)
 	{
 		if (count == 6)
 		{
@@ -45,6 +46,7 @@ int	check_textures_and_color(char **map_str, t_config *config)
 			return (-1);
 		}
 		free(line);
+		line = get_next_line_from_string(map_str);
 	}
 	if (!config->no_tex || !config->so_tex || !config->we_tex
 		|| !config->ea_tex)

@@ -6,7 +6,7 @@
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 17:49:04 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/11/10 09:47:50 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/11/10 10:12:29 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	load_map_content(int fd, char **all_map)
 	char	*line;
 
 	*all_map = NULL;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		if (append_line(all_map, line) == -1)
 		{
@@ -44,6 +45,7 @@ int	load_map_content(int fd, char **all_map)
 			return (-1);
 		}
 		free(line);
+		line = get_next_line(fd);
 	}
 	return (0);
 }
