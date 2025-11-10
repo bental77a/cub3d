@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 18:20:09 by houarrak          #+#    #+#             */
-/*   Updated: 2025/11/10 10:00:10 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/11/10 19:43:24 by houarrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	key_press(int keycode, t_game *game)
 
 int	key_release(int keycode, t_game *game)
 {
-	if (keycode == KEY_W || keycode == KEY_UP)
+	if (keycode == KEY_W)
 		game->forward = 0;
-	if (keycode == KEY_S || keycode == KEY_DOWN)
+	if (keycode == KEY_S)
 		game->back = 0;
 	if (keycode == KEY_A)
 		game->strafe_left = 0;

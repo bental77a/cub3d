@@ -6,7 +6,7 @@
 #    By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 14:16:44 by mohben-t          #+#    #+#              #
-#    Updated: 2025/11/10 14:21:19 by houarrak         ###   ########.fr        #
+#    Updated: 2025/11/10 19:44:16 by houarrak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ all : $(NAME)
 $(NAME) : $(SRC)
 	$(CC) $(SRC) $(CFLAGS) $(LIBXFLAGS) -o $(NAME)
 
-bonus: all
+bonus: fclean all
 
 .o:.c
 	$(CC) $(CFLAGS) -c $< -o $@
