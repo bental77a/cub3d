@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+         #
+#    By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 14:16:44 by mohben-t          #+#    #+#              #
-#    Updated: 2025/11/10 10:05:42 by mohben-t         ###   ########.fr        #
+#    Updated: 2025/11/10 14:21:19 by houarrak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := cub3d
+NAME := cub3D
 
 CC := cc
 

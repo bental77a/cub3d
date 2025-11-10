@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:13:36 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/11/10 10:07:57 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/11/10 14:17:33 by houarrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,9 @@ void			strafe_left(t_game *game);
 void			strafe_right(t_game *game);
 void			rotate_left(t_game *game);
 void			rotate_right(t_game *game);
+int				handle_linear_movement(t_game *game);
+int				handle_rotation(t_game *game);
+
 
 // HOOKS
 int				key_press(int keycode, t_game *game);
