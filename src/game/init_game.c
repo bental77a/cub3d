@@ -33,7 +33,7 @@ static void	load_texture(t_game *game, int id, char *path)
 	}
 }
 
-static void init_mlx_and_window(t_game *game)
+static void	init_mlx_and_window(t_game *game)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
@@ -62,7 +62,7 @@ static void init_mlx_and_window(t_game *game)
 	}
 }
 
-static void init_textures(t_game *game)
+static void	init_textures(t_game *game)
 {
 	if (!game->config.no_tex || !game->config.so_tex || !game->config.we_tex
 		|| !game->config.ea_tex)
@@ -76,7 +76,7 @@ static void init_textures(t_game *game)
 	load_texture(game, 3, game->config.ea_tex);
 }
 
-static void init_game_keys(t_game *game)
+static void	init_game_keys(t_game *game)
 {
 	game->forward = 0;
 	game->back = 0;
@@ -87,9 +87,9 @@ static void init_game_keys(t_game *game)
 	game->need_redraw = 1;
 }
 
-void init_game(t_game *game)
+void	init_game(t_game *game)
 {
-	int i;
+	int	i;
 
 	game->mlx = NULL;
 	game->win = NULL;
@@ -110,7 +110,6 @@ void init_game(t_game *game)
 		game->tex_endian[i] = 0;
 		i++;
 	}
-
 	init_mlx_and_window(game);
 	init_textures(game);
 	init_game_keys(game);

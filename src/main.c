@@ -3,22 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:12:15 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/11/09 21:42:24 by houarrak         ###   ########.fr       */
+/*   Updated: 2025/11/10 09:40:37 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../includes/cub.h"
 
-void destroy_leaks(t_config *config)
+void	destroy_leaks(t_config *config)
 {
-    if (config->map)
-        free_array(config->map);
-    free_textures(config);
-        
+	if (config->map)
+		free_array(config->map);
+	free_textures(config);
 }
 
 int	handle_identifier_line(char **cursor, t_config *config)
@@ -33,59 +31,53 @@ int	handle_identifier_line(char **cursor, t_config *config)
 
 int	is_valid_map_char(char c)
 {
-	return (c == ' ' || c == '0' || c == '1' || c == 'N'
-		|| c == 'S' || c == 'E' || c == 'W');
+	return (c == ' ' || c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'E'
+		|| c == 'W');
 }
 
 static void	init_config(t_config *config)
 {
-    config->no_tex = NULL;
-    config->so_tex = NULL;
-    config->we_tex = NULL;
-    config->ea_tex = NULL;
-    config->floor[0] = -1;
-    config->floor[1] = -1;
-    config->floor[2] = -1;
-    config->ceil[0] = -1;
-    config->ceil[1] = -1;
-    config->ceil[2] = -1;
-    config->map = NULL;
-    config->map_h = 0;
-    config->map_w = 0;
-    config->player_x = -1;
-    config->player_y = -1;
-    config->player_dir = '\0';
+	config->no_tex = NULL;
+	config->so_tex = NULL;
+	config->we_tex = NULL;
+	config->ea_tex = NULL;
+	config->floor[0] = -1;
+	config->floor[1] = -1;
+	config->floor[2] = -1;
+	config->ceil[0] = -1;
+	config->ceil[1] = -1;
+	config->ceil[2] = -1;
+	config->map = NULL;
+	config->map_h = 0;
+	config->map_w = 0;
+	config->player_x = -1;
+	config->player_y = -1;
+	config->player_dir = '\0';
 }
 
-
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    t_game game;
+	t_game	game;
 
-    if (ac != 2)
-        return (ft_putendl_fd(USAGE_ERR, 2), 1);
-    if (has_cub_extension(av[1]))
-        return (1);
-    init_config(&game.config);
-    if (parse_file(av[1], &game.config))
-        return (1);
-    if (game.config.floor[0] == -1 && game.config.floor[1] == -1
-		&& game.config.floor[2] == -1)
-		return (destroy_leaks(&game.config), put_error("Floor color not set"), 1);
-	if (game.config.ceil[0] == -1 && game.config.ceil[1] == -1
-		&& game.config.ceil[2] == -1)
-		return (destroy_leaks(&game.config), put_error("Ceiling color not set"), 1);
-    init_game(&game);
-    init_player(&game.player, &game.config);
-    draw_background(&game);
-    raycast(&game, &game.player);
-    mlx_hook(game.win, 2, 1L<<0, key_press, &game);
-    mlx_hook(game.win, 3, 1L<<1, key_release, &game);
-    mlx_hook(game.win, 17, 0, close_window, &game);
-    mlx_loop_hook(game.mlx, update_loop, &game);
-    mlx_loop(game.mlx);
-    mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
-    mlx_loop(game.mlx);
-    return (0);
+	if (ac != 2)
+		return (ft_putendl_fd(USAGE_ERR, 2), 1);
+	if (has_cub_extension(av[1]))
+		return (1);
+	init_config(&game.config);
+	if (parse_file(av[1], &game.config))
+		return (1);
+	if (check_colors(&game.config))
+		return (1);
+	init_game(&game);
+	init_player(&game.player, &game.config);
+	draw_background(&game);
+	raycast(&game, &game.player);
+	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
+	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
+	mlx_hook(game.win, 17, 0, close_window, &game);
+	mlx_loop_hook(game.mlx, update_loop, &game);
+	mlx_loop(game.mlx);
+	mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
+	mlx_loop(game.mlx);
+	return (0);
 }
-

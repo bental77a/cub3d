@@ -6,7 +6,7 @@
 #    By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 14:16:44 by mohben-t          #+#    #+#              #
-#    Updated: 2025/11/09 17:56:55 by mohben-t         ###   ########.fr        #
+#    Updated: 2025/11/10 10:05:42 by mohben-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,9 @@ srcode  := src/parsing/print_error.c  src/parsing/parsse_color.c src/parsing/par
 			src/parsing/parse_file.c  src/parsing/parse_utils_2.c src/parsing/parse_utils_3.c
 
 srcgame := src/game/game_utils.c src/game/init_game.c src/game/raycaster.c src/game/hooks.c \
-			src/game/player_mov.c src/game/raycaster_utils.c src/game/textures.c
+			src/game/player_mov.c src/game/raycaster_utils.c src/game/textures.c 
 
-main 	:= src/main.c src/game/player.c src/game/player_utils.c
+main 	:= src/main.c src/game/player.c src/game/player_utils.c src/game/player_move_utils.c
 
 gnl     := gnl/get_next_line_utils.c gnl/get_next_line.c
 

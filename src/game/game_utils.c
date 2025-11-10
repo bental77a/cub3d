@@ -3,24 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   game_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:02:59 by houarrak          #+#    #+#             */
-/*   Updated: 2025/11/09 22:47:26 by houarrak         ###   ########.fr       */
+/*   Updated: 2025/11/10 10:01:17 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-int is_empty_cell(t_game *game, double x, double y)
+int	is_empty_cell(t_game *game, double x, double y)
 {
-	int map_x = (int)x;
-	int map_y = (int)y;
-    if (map_x < 0 || map_y < 0 || map_y >= game->config.map_h)
-        return 0;
-    if (map_x >= (int)ft_strlen(game->config.map[map_y]))
-        return 0;
-    return (game->config.map[map_y][map_x] != '1');
+	int	map_x;
+	int	map_y;
+
+	map_x = (int)x;
+	map_y = (int)y;
+	if (map_x < 0 || map_y < 0 || map_y >= game->config.map_h)
+		return (0);
+	if (map_x >= (int)ft_strlen(game->config.map[map_y]))
+		return (0);
+	return (game->config.map[map_y][map_x] != '1');
 }
 
 int	rgb_to_int(int r, int g, int b)
@@ -42,8 +45,9 @@ void	draw_background(t_game *game)
 {
 	int	ceil;
 	int	floor;
+	int	x;
+	int	y;
 
-	int x, y;
 	ceil = rgb_to_int(game->config.ceil[0], game->config.ceil[1],
 			game->config.ceil[2]);
 	floor = rgb_to_int(game->config.floor[0], game->config.floor[1],
@@ -66,7 +70,7 @@ void	draw_background(t_game *game)
 
 void	destroy_game(t_game *game)
 {
-	int i;
+	int	i;
 
 	if (!game)
 		return ;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils_1.c                                    :+:      :+:    :+:   */
+/*   parse_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 17:49:04 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/11/09 17:49:17 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/11/10 09:47:50 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int	append_line(char **buffer, char *line)
 	char	*joined;
 
 	tmp = *buffer;
-	joined = ft_strjoin(tmp ? tmp : "", line);
+	if (tmp)
+		joined = ft_strjoin(tmp, line);
+	else
+		joined = ft_strjoin("", line);
 	free(tmp);
 	if (!joined)
 		return (-1);

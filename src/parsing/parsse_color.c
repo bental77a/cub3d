@@ -6,10 +6,9 @@
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 17:48:01 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/11/09 17:48:17 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/11/10 09:44:30 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/cub.h"
 
@@ -72,6 +71,7 @@ int	get_colors(char **str, t_config *config)
 	}
 	return (0);
 }
+
 void	free_textures(t_config *config)
 {
 	if (config->no_tex)

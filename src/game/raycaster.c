@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 20:47:57 by houarrak          #+#    #+#             */
-/*   Updated: 2025/11/09 17:26:57 by houarrak         ###   ########.fr       */
+/*   Updated: 2025/11/10 10:07:33 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-static void dda_loop(t_game *g, t_ray *r)
+static void	dda_loop(t_game *g, t_ray *r)
 {
-	int hit = 0;
+	int	hit;
+
+	hit = 0;
 	while (!hit)
 	{
 		if (r->side_dist_x < r->side_dist_y)
@@ -37,7 +39,7 @@ static void dda_loop(t_game *g, t_ray *r)
 	}
 }
 
-static void perform_dda(t_game *g, t_ray *r)
+static void	perform_dda(t_game *g, t_ray *r)
 {
 	dda_loop(g, r);
 	if (r->side == 0)
@@ -57,10 +59,10 @@ static void	calculate_projection(t_proj *p, double dist)
 		p->draw_end = HEIGHT - 1;
 }
 
-static void	draw_wall_column(t_game *g, t_ray *r, t_proj *p, int tex_id, int x)
+static void	draw_wall_column(t_game *g, t_ray *r, t_proj *p, int tex_id)
 {
-	int		y;
-	int		tex_y;
+	int				y;
+	int				tex_y;
 	unsigned int	color;
 
 	y = p->draw_start;
@@ -70,26 +72,26 @@ static void	draw_wall_column(t_game *g, t_ray *r, t_proj *p, int tex_id, int x)
 		p->tex_pos += p->step;
 		color = get_tex_color(g, tex_id, p->tex_x, tex_y);
 		if (r->side == 1)
-			color = (color >> 1) & 0x7F7F7F; // shading
-		put_pixel(g, x, y, color);
+			color = (color >> 1) & 0x7F7F7F;
+		put_pixel(g, g->x, y, color);
 		y++;
 	}
 }
+
 void	raycast(t_game *g, t_player *p)
 {
 	t_ray	r;
 	t_proj	pr;
-	int		x;
 	int		tex_id;
 
-	x = 0;
-	while (x < WIDTH)
+	g->x = 0;
+	while (g->x < WIDTH)
 	{
-		init_ray(&r, p, x);
+		init_ray(&r, p, g);
 		perform_dda(g, &r);
 		calculate_projection(&pr, r.perp_wall_dist);
 		tex_id = get_texture_info(g, &r, &pr);
-		draw_wall_column(g, &r, &pr, tex_id, x);
-		x++;
+		draw_wall_column(g, &r, &pr, tex_id);
+		g->x++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:13:16 by mohben-t          #+#    #+#             */
-/*   Updated: 2025/11/09 17:47:44 by mohben-t         ###   ########.fr       */
+/*   Updated: 2025/11/10 09:43:55 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,22 @@ void	print_error(int code)
 		put_error("Multiple players");
 	else
 		put_error("Unknown error");
+}
+
+int	check_colors(t_config *config)
+{
+	if (config->floor[0] == -1 && config->floor[1] == -1 && config->floor[2]
+		== -1)
+	{
+		destroy_leaks(config);
+		put_error("Floor color not set");
+		return (1);
+	}
+	if (config->ceil[0] == -1 && config->ceil[1] == -1 && config->ceil[2] == -1)
+	{
+		destroy_leaks(config);
+		put_error("Ceiling color not set");
+		return (1);
+	}
+	return (0);
 }

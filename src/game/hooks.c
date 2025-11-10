@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houarrak <houarrak@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mohben-t <mohben-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 18:20:09 by houarrak          #+#    #+#             */
-/*   Updated: 2025/11/09 21:38:34 by houarrak         ###   ########.fr       */
+/*   Updated: 2025/11/10 10:00:10 by mohben-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	key_release(int keycode, t_game *game)
 		game->rot_right = 0;
 	return (0);
 }
+
 int	close_window(t_game *game)
 {
 	destroy_game(game);
@@ -59,8 +60,10 @@ int	close_window(t_game *game)
 	return (0);
 }
 
-void free_config(t_config *config)
+void	free_config(t_config *config)
 {
+	int	i;
+
 	if (config->no_tex)
 		free(config->no_tex);
 	if (config->so_tex)
@@ -71,7 +74,7 @@ void free_config(t_config *config)
 		free(config->ea_tex);
 	if (config->map)
 	{
-		int i = 0;
+		i = 0;
 		while (i < config->map_h)
 		{
 			if (config->map[i])
@@ -81,5 +84,3 @@ void free_config(t_config *config)
 		free(config->map);
 	}
 }
-
-
